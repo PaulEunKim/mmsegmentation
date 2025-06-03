@@ -5,12 +5,11 @@ import os
 import os.path as osp
 import warnings
 from argparse import ArgumentParser
-
-import requests
 from mmengine import Config
 
 from mmseg.apis import inference_model, init_model, show_result_pyplot
 from mmseg.utils import get_root_logger
+from security import safe_requests
 
 # ignore warnings when segmentors inference
 warnings.filterwarnings('ignore')
@@ -20,7 +19,7 @@ def download_checkpoint(checkpoint_name, model_name, config_name, collect_dir):
     """Download checkpoint and check if hash code is true."""
     url = f'https://download.openmmlab.com/mmsegmentation/v0.5/{model_name}/{config_name}/{checkpoint_name}'  # noqa
 
-    r = requests.get(url)
+    r = safe_requests.get(url)
     assert r.status_code != 403, f'{url} Access denied.'
 
     with open(osp.join(collect_dir, checkpoint_name), 'wb') as code:
