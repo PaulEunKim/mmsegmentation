@@ -88,7 +88,7 @@ def main():
         for log_name in log_list:
             with open(os.path.join(preceding_path, log_name)) as f:
                 # ignore the info line
-                f.readline()
+                f.readline(5_000_000)
                 all_lines = f.readlines()
                 val_list.extend([
                     json.loads(line) for line in all_lines
