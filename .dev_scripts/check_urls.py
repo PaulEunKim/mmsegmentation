@@ -19,7 +19,7 @@ def check_url(url):
         int, bool: status code and check flag.
     """
     flag = True
-    r = requests.head(url)
+    r = requests.head(url, timeout=60)
     status_code = r.status_code
     if status_code == 403 or status_code == 404:
         flag = False

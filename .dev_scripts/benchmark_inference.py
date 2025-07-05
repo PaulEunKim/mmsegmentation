@@ -20,7 +20,7 @@ def download_checkpoint(checkpoint_name, model_name, config_name, collect_dir):
     """Download checkpoint and check if hash code is true."""
     url = f'https://download.openmmlab.com/mmsegmentation/v0.5/{model_name}/{config_name}/{checkpoint_name}'  # noqa
 
-    r = requests.get(url)
+    r = requests.get(url, timeout=60)
     assert r.status_code != 403, f'{url} Access denied.'
 
     with open(osp.join(collect_dir, checkpoint_name), 'wb') as code:
